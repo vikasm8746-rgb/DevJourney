@@ -1,0 +1,1 @@
+import Journey from './Journey';export default function Tracker(){return <><div className='notice'><b>Daily Learning Tracker</b><span>Log today's focused learning session and keep your streak alive.</span></div><Journey/></>}

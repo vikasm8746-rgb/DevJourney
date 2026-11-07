@@ -1,0 +1,5 @@
+import {createContext,useContext,useEffect,useState} from 'react';import {load,save} from '../utils/storage';import {demoActivities,demoGoals} from '../data/mockData';
+const C=createContext(); export const useApp=()=>useContext(C);
+export function AppProvider({children}){const [user,setUser]=useState(()=>load('dj_user',null));const [activities,setActivities]=useState(()=>load('dj_activities',demoActivities));const [goals,setGoals]=useState(()=>load('dj_goals',demoGoals));const [completedSkills,setCompletedSkills]=useState(()=>load('dj_skills',['HTML']));const [theme,setTheme]=useState(()=>load('dj_theme','dark'));
+useEffect(()=>save('dj_user',user),[user]);useEffect(()=>save('dj_activities',activities),[activities]);useEffect(()=>save('dj_goals',goals),[goals]);useEffect(()=>save('dj_skills',completedSkills),[completedSkills]);useEffect(()=>{save('dj_theme',theme);document.documentElement.dataset.theme=theme},[theme]);
+return <C.Provider value={{user,setUser,activities,setActivities,goals,setGoals,completedSkills,setCompletedSkills,theme,setTheme}}>{children}</C.Provider>}

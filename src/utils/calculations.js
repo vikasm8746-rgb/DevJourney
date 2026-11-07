@@ -1,0 +1,4 @@
+export const totalHours=a=>a.reduce((s,x)=>s+Number(x.hours||0),0);
+export const streak=a=>{const days=[...new Set(a.map(x=>x.date))].sort().reverse();let n=0,d=new Date();for(let i=0;i<days.length;i++){const expected=new Date(d);expected.setDate(d.getDate()-i);if(days[i]===expected.toISOString().slice(0,10))n++;else break}return n};
+export const longestStreak=a=>{const ds=[...new Set(a.map(x=>x.date))].sort();let best=0,cur=0,prev=null;for(const x of ds){if(prev&&new Date(x)-new Date(prev)===86400000)cur++;else cur=1;best=Math.max(best,cur);prev=x}return best};
+export const journeyScore=(activities,goals,skills)=>Math.min(100,Math.round(Math.min(30,totalHours(activities)*2)+Math.min(25,activities.length*3)+Math.min(25,skills.length*4)+(goals.length?Math.min(20,goals.filter(g=>g.completed).length/goals.length*20):0)));
